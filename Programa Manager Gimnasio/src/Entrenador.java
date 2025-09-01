@@ -77,6 +77,30 @@ public class Entrenador {
         }
     }
 
+    public int getCantidad_alumnos(){
+        return lista_alumnos.size();
+    }
+
+    public int getNumero_usos_rutina(String nombre_rutina){
+        int cant_usos_rutina = 0;
+        for (ContadorEjercicio rutina_ejercicio: lista_rutinas){
+            if (rutina_ejercicio.getNombre_ejercicio().equals(nombre_rutina)){
+                cant_usos_rutina = rutina_ejercicio.getCantidad_usos();
+                break;
+            }
+        }
+        return cant_usos_rutina;
+    }
+
+    public int getCantidad_rutinas(){
+        return lista_rutinas.size();
+    }
+
+    public String getRutina_by_posicion(int posicion){
+        Rutina[] lista_rutinas_temp = lista_rutinas.toArray(new Rutina[0]);
+        return lista_rutinas_temp[posicion].getNombre();
+    }
+
 
     public void setMax_alumnos(int max_alumnos) {
         this.max_alumnos = max_alumnos;
