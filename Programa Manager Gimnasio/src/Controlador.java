@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Controlador {
+public class Controlador{
     private ArrayList<Miembro> lista_miembros;
     private ArrayList<Entrenador> lista_entrenadores;
     private ArrayList<Ejercicio> lista_ejercicios;
@@ -159,22 +159,38 @@ public class Controlador {
         miembro_a_asignar.setEntrenador(nombre_entrenador);
     }
 
-    public boolean AssignMiembroFromEntrenador(String nombre_miembro, String nombre_entrenador){
-        Entrenador entrenador_a_asignar = null;
+    public boolean RemoveMiembroFromEntrenador(String nombre_miembro){
+        Miembro miembro_a_remover = null;
+        Entrenador entrenador_a_remover = null;
+        String nombre_entrenador_a_remover;
 
-        for (Entrenador entrenador: lista_entrenadores){
-            if (entrenador.getNombre().equals(nombre_entrenador)){
-                entrenador_a_asignar = entrenador;
+        for (Miembro miembro: lista_miembros){
+            if (miembro.getNombre().equals(nombre_miembro)){
+                miembro_a_remover = miembro;
                 break;
             }
         }
 
-        if (entrenador_a_asignar.RemoveAlumno(nombre_entrenador)){
-            return true;
-        }
-        else{
+        nombre_entrenador_a_remover = miembro_a_remover.getEntrenador();
+
+        if (nombre_entrenador_a_remover == null){
             return false;
         }
+        else{
+            for (Entrenador entrenador: lista_entrenadores){
+                if (entrenador.getNombre().equals(nombre_entrenador_a_remover)){
+                    entrenador_a_remover = entrenador;
+                    break;
+                }
+            }
+
+            if (entrenador_a_remover.RemoveAlumno(nombre_miembro) && miembro_a_remover.RemoveEntrenador()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }  
     }
 
     public String ShowStatistics(){
